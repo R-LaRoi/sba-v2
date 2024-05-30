@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1067fe;
+  color: white;
+}
+h1 {
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
