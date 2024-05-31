@@ -148,13 +148,3 @@ getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 // assignment _id: number
 //  each assignment needs a key
 //  return the learners score % based on the total points available
-
-// getId();
-// console.log(LearnerSubmissions[0].learner_id);
-// console.log(LearnerSubmissions[4].learner_id);
-
-// thisArray.push(
-//   LearnerSubmissions[4].learner_id,
-//   LearnerSubmissions[0].learner_id
-// );
-// console.log(thisArray);
