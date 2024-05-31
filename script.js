@@ -99,6 +99,7 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
     for (const i in idObj) learnerObj.push({ learner_id: idObj[i] });
     console.log(learnerObj);
   }
+
   getLearnerId();
 
   function getAssignmentData(assignments) {
