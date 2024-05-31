@@ -1,5 +1,4 @@
 // The provided course information.
-
 const CourseInfo = {
   id: 451,
   name: "Introduction to JavaScript",
@@ -79,15 +78,90 @@ const LearnerSubmissions = [
 ];
 
 function getLearnerData(courseInfo, groupAssignments, submissions) {
-  console.log(courseInfo, groupAssignments, submissions);
+  let collectId = [];
+  let assignmentInfo = [];
+  let learnerScores = [];
+  let learnerScores2 = [];
+  let learnerObj = [];
+
+  let assignmentPoints = "";
+
+  function getLearnerId() {
+    submissions.forEach((element) => {
+      collectId.push(element.learner_id);
+    });
+
+    function removeDuplicates(collectId) {
+      return [...new Set(collectId)];
+    }
+
+    let learnerIdArray = removeDuplicates(collectId);
+    let idObj = { ...learnerIdArray };
+    console.log(collectId[0]);
+    console.log(collectId[4]);
+    // create nested learner object
+    learnerObj = [];
+    for (const i in idObj) learnerObj.push({ learner_id: idObj[i] });
+    console.log(learnerObj);
+  }
+  getLearnerId();
+
+  function getAssignmentData(assignments) {
+    let thisthing = "";
+    assignments.forEach((element) => {
+      assignmentInfo.push(element.points_possible);
+    });
+
+    console.log(thisthing);
+
+    submissions.forEach((element) => {
+      // seperate scores by learner id
+      if (element.learner_id === collectId[0]) {
+        learnerScores.push(element.submission.score);
+      } else if (element.learner_id === collectId[4]) {
+        learnerScores2.push(element.submission.score);
+      }
+
+      function totalPoints(numbers) {
+        let sum = 0;
+        numbers.forEach(function (number) {
+          sum += number;
+
+          learnerObj[0].avg = Math.round(sum / learnerScores.length);
+          learnerObj[1].avg = Math.round(sum / learnerScores2.length);
+          assignmentPoints = Math.round(sum / learnerScores2.length);
+        });
+      }
+
+      totalPoints(learnerScores);
+      totalPoints(learnerScores2);
+      totalPoints(assignmentInfo);
+    });
+
+    console.log(assignmentPoints);
+
+    console.log(learnerObj);
+  }
+  getAssignmentData(groupAssignments.assignments);
 }
 
 getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-
-// create an array of objects that contains the learner id:number,
 
 // get the learners total avg:number and compare the total points for all the assignments
 
 // assignment _id: number
 //  each assignment needs a key
 //  return the learners score % based on the total points available
+
+let learnerObj1 = {};
+let learnerObj2 = {};
+
+// getId();
+// console.log(LearnerSubmissions[0].learner_id);
+// console.log(LearnerSubmissions[4].learner_id);
+
+// thisArray.push(
+//   LearnerSubmissions[4].learner_id,
+//   LearnerSubmissions[0].learner_id
+// );
+// console.log(thisArray);
