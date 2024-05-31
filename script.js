@@ -80,12 +80,8 @@ const LearnerSubmissions = [
 function getLearnerData(courseInfo, groupAssignments, submissions) {
   let collectId = [];
   let assignmentInfo = [];
-  let learnerScores = [];
-  let learnerScores2 = [];
   let learnerObj = [];
-  // let assignmentPoints = "";
-  let ttg = learnerObj.assignment_id;
-  let completedAssignments = new Array();
+
   function getLearnerId() {
     submissions.forEach((element) => {
       collectId.push(element.learner_id);
@@ -106,6 +102,13 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
   getLearnerId();
 
   function getAssignmentData(assignments) {
+    let completedAssignments = new Array();
+    let completedAssignments2 = new Array();
+
+    let learnerScores = [];
+    let learnerScores2 = [];
+
+    let assignmentPoints = "";
     // loop through assignments
     for (let i = 0; i < assignments.length; i++) {
       const element = assignments[i];
@@ -123,16 +126,19 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
       // seperate scores by learner id
       if (element.learner_id === collectId[0]) {
         learnerScores.push(element.submission.score);
-
         completedAssignments.push([
           element.assignment_id,
           element.submission.score,
         ]);
-
         learnerObj[0].assignments = completedAssignments;
         // console.log(completedAssignments);
       } else if (element.learner_id === collectId[4]) {
         learnerScores2.push(element.submission.score);
+        completedAssignments2.push([
+          element.assignment_id,
+          element.submission.score,
+        ]);
+        learnerObj[1].assignments = completedAssignments2;
       }
 
       function avgPoints(numbers) {
