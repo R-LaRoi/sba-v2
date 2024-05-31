@@ -83,9 +83,9 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
   let learnerScores = [];
   let learnerScores2 = [];
   let learnerObj = [];
-
-  let assignmentPoints = "";
-
+  // let assignmentPoints = "";
+  let ttg = learnerObj.assignment_id;
+  let completedAssignments = new Array();
   function getLearnerId() {
     submissions.forEach((element) => {
       collectId.push(element.learner_id);
@@ -97,8 +97,7 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
 
     let learnerIdArray = removeDuplicates(collectId);
     let idObj = { ...learnerIdArray };
-    console.log(collectId[0]);
-    console.log(collectId[4]);
+
     // create nested learner object
     learnerObj = [];
     for (const i in idObj) learnerObj.push({ learner_id: idObj[i] });
@@ -107,35 +106,48 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
   getLearnerId();
 
   function getAssignmentData(assignments) {
-    assignments.forEach((element) => {
+    // loop through assignments
+    for (let i = 0; i < assignments.length; i++) {
+      const element = assignments[i];
       assignmentInfo.push(element.points_possible);
-    });
+
+      let sum = 0;
+      assignmentInfo.forEach(function (number) {
+        sum += number;
+        assignmentPoints = Math.round(sum / assignmentInfo.length);
+      });
+      console.log(assignmentInfo);
+    }
 
     submissions.forEach((element) => {
       // seperate scores by learner id
       if (element.learner_id === collectId[0]) {
         learnerScores.push(element.submission.score);
+
+        completedAssignments.push([
+          element.assignment_id,
+          element.submission.score,
+        ]);
+
+        learnerObj[0].assignments = completedAssignments;
+        // console.log(completedAssignments);
       } else if (element.learner_id === collectId[4]) {
         learnerScores2.push(element.submission.score);
       }
 
-      function totalPoints(numbers) {
+      function avgPoints(numbers) {
         let sum = 0;
         numbers.forEach(function (number) {
           sum += number;
-
           learnerObj[0].avg = Math.round(sum / learnerScores.length);
           learnerObj[1].avg = Math.round(sum / learnerScores2.length);
-          assignmentPoints = Math.round(sum / learnerScores2.length);
         });
       }
 
-      totalPoints(learnerScores);
-      totalPoints(learnerScores2);
-      totalPoints(assignmentInfo);
+      avgPoints(learnerScores);
+      avgPoints(learnerScores2);
     });
 
-    console.log(assignmentPoints);
     console.log(learnerObj);
   }
   getAssignmentData(groupAssignments.assignments);
