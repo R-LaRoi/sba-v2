@@ -107,12 +107,9 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
   getLearnerId();
 
   function getAssignmentData(assignments) {
-    let thisthing = "";
     assignments.forEach((element) => {
       assignmentInfo.push(element.points_possible);
     });
-
-    console.log(thisthing);
 
     submissions.forEach((element) => {
       // seperate scores by learner id
@@ -139,7 +136,6 @@ function getLearnerData(courseInfo, groupAssignments, submissions) {
     });
 
     console.log(assignmentPoints);
-
     console.log(learnerObj);
   }
   getAssignmentData(groupAssignments.assignments);
@@ -152,9 +148,6 @@ getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
 // assignment _id: number
 //  each assignment needs a key
 //  return the learners score % based on the total points available
-
-let learnerObj1 = {};
-let learnerObj2 = {};
 
 // getId();
 // console.log(LearnerSubmissions[0].learner_id);
